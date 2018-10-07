@@ -26,9 +26,11 @@ class App extends Component {
         <Header></Header>
         <div className="Lists">
           <ul className="Wishlists">
-            {this.state.wishlists.map((wishlist) => <li>
-              {wishlist.name} by {wishlist.owner}
-              </li>)}
+            {this.state.wishlists.map((wishlist) =>
+              <li key={wishlist.name}>
+                {wishlist.name} by {wishlist.owner}
+              </li>
+            )}
           </ul>
         </div>
         <div className="List">

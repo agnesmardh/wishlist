@@ -58,10 +58,12 @@ class Wishlist extends Component {
             <div>
             <p className="Error-text"> {this.state.message} </p>
             <ul className = "List">
-            {this.state.wishes.map((wish) => <li className="Item">
-            <Wish text={wish}></Wish>
-            <button onClick={(e) => this.removeItem(wish)} type="button" className="btn btn-default btn-small">remove</button>
-            </li>)}
+            {this.state.wishes.map((wish) =>
+              <li className="Item" key={wish}>
+                <Wish text={wish}></Wish>
+                <button onClick={(e) => this.removeItem(wish)} type="button" className="btn btn-default btn-small">remove</button>
+              </li>
+            )}
             </ul>
 
             <AddWishForm addWish={this.addWish}/>
