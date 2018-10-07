@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './Wishlist.css';
 import Wish from './Wish';
+import AddWishForm from './AddWishForm';
 
 class Wishlist extends Component {
 
@@ -13,19 +14,10 @@ class Wishlist extends Component {
       editMode: true
     };
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
     this.switchMode = this.switchMode.bind(this);
   }
 
-  handleChange(event) {
-    this.setState({newWishName: event.target.value});
-  }
-
-  handleSubmit(event) {
-    event.preventDefault();
-
-    const newWishName = this.state.newWishName;
+  addWish = (newWishName) => {
     const isInlist = this.state.wishes.includes(newWishName);
     if(isInlist) {
       this.setState({
@@ -33,13 +25,10 @@ class Wishlist extends Component {
       })
     } else {
       newWishName !== '' && this.setState(prevState => ({
-      wishes: [...prevState.wishes, this.state.newWishName],
+      wishes: [...prevState.wishes, newWishName],
       message: ''
       }))
     }
-    this.setState({
-      newWishName: ''
-    })
   }
 
   removeItem(wish) {
@@ -75,15 +64,8 @@ class Wishlist extends Component {
             </li>)}
             </ul>
 
-            <form id='form' onSubmit={this.handleSubmit}>
-            <label>
-              Add a wish :
-              <input type="text" id='input-field' value={this.state.newWishName} onChange={this.handleChange} />
-            </label>
-            <input type="submit" value="Add" />
-          </form>
-          <Wish text='This is my wish'></Wish>
-          </div>
+            <AddWishForm addWish={this.addWish}/>
+            </div>
           )
           :
           <div>
