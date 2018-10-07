@@ -1,0 +1,11 @@
+.List {
+  display: inline-block;
+}
+
+.Item {
+  text-align: left;
+}
+
+.Error-text {
+  color: red;
+}
