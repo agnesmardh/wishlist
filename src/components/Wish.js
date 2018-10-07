@@ -4,7 +4,7 @@ class Wish extends Component {
 
   render() {
     return (
-      <p>{this.props.text}</p>
+      <span>{this.props.text}</span>
     );
   }
 
