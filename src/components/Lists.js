@@ -17,7 +17,7 @@ class Lists extends Component {
       <div className="Lists">
         <ul className="Wishlists">
           {this.props.wishlists.map((wishlist) =>
-            <li key={wishlist.name}>
+            <li key={wishlist.name} onClick={(e) => this.props.chooseList(wishlist)}>
               {wishlist.name} by {wishlist.owner}
             </li>
           )}

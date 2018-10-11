@@ -20,13 +20,19 @@ class App extends Component {
     };
   }
 
+  chooseList = (wishlist) => {
+    this.setState({
+      activeList: wishlist
+    })
+  }
+
   render() {
     return (
       <div className="App">
         <Header/>
-        <Lists wishlists={this.state.wishlists}/>
+        <Lists wishlists={this.state.wishlists} chooseList={this.chooseList}/>
         <div className="List">
-          <Wishlist wishlist = {this.state.activeList}></Wishlist>
+          <Wishlist wishlist={this.state.activeList}></Wishlist>
         </div>
       </div>
     );

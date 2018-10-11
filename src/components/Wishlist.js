@@ -32,7 +32,7 @@ class Wishlist extends Component {
     }
   }
 
-  removeItem(wish) {
+  removeItem = (wish) => {
     const newWishes = this.state.wishes.filter(item => {
       return item !== wish;
     });
