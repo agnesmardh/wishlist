@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './Wishlist.css';
 import Wish from './Wish';
 import AddWishForm from './AddWishForm';
+import SharedWishlist from './SharedWishlist';
 
 class Wishlist extends Component {
 
@@ -71,7 +72,7 @@ class Wishlist extends Component {
           )
           :
           <div>
-            <p>Not implemented yet</p>
+            <SharedWishlist wishes={this.state.wishes}/>
           </div>
         }
         <button onClick={this.switchMode} type="button" className="btn btn-default btn-small">Switch</button>
