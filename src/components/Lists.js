@@ -20,6 +20,15 @@ class Lists extends Component {
     }))
   }
 
+  removeList = (wishlist) => {
+    const newWishlists = this.state.wishlists.filter(item => {
+      return item !== wishlist;
+    });
+    this.setState({
+      wishlists: [...newWishlists]
+    })
+  }
+
   render() {
     return (
       <div className="Lists">
@@ -27,6 +36,7 @@ class Lists extends Component {
           {this.state.wishlists.map((wishlist) =>
             <li key={wishlist.name} onClick={(e) => this.props.chooseList(wishlist)}>
               {wishlist.name} by {wishlist.owner}
+              <button onClick={(e) => this.removeList(wishlist)} type="button" className="btn btn-default btn-small">remove</button>
             </li>
           )}
         </ul>
