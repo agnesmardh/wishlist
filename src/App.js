@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Header from "./components/Header";
 import Wishlist from "./components/Wishlist";
+import Lists from "./components/Lists";
 
 class App extends Component {
 
@@ -11,30 +12,21 @@ class App extends Component {
       wishlists: [
         {name: 'My wishlist', owner: 'Agnes'},
         {name: 'Books', owner: 'Mattias'}
-      ]
+      ],
+      activeList: {
+        name: "My Wishlist",
+        owner: "Agnes"
+      }
     };
   }
 
   render() {
-    let wishlist = {
-      name: "My Wishlist",
-      owner: "Agnes"
-    };
-
     return (
       <div className="App">
-        <Header></Header>
-        <div className="Lists">
-          <ul className="Wishlists">
-            {this.state.wishlists.map((wishlist) =>
-              <li key={wishlist.name}>
-                {wishlist.name} by {wishlist.owner}
-              </li>
-            )}
-          </ul>
-        </div>
+        <Header/>
+        <Lists wishlists={this.state.wishlists}/>
         <div className="List">
-          <Wishlist wishlist = {wishlist}></Wishlist>
+          <Wishlist wishlist = {this.state.activeList}></Wishlist>
         </div>
       </div>
     );
