@@ -9,10 +9,6 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      wishlists: [
-        {name: 'My wishlist', owner: 'Agnes'},
-        {name: 'Books', owner: 'Mattias'}
-      ],
       activeList: {
         name: "My Wishlist",
         owner: "Agnes"
