@@ -23,13 +23,13 @@ class AddWishForm extends Component {
 
   render() {
     return (
-      <form id='form' onSubmit={this.handleSubmit}>
-        <label>
-          Add a wish :
-          <input type="text" id='input-field' value={this.state.newWishName} onChange={this.handleChange} />
-        </label>
-      <input type="submit" value="Add" />
-      </form>
+      <div className="input-group input-group-sm mb-3">
+        <input type="text" className="form-control" placeholder="Wish"
+        value={this.state.newWishName} onChange={this.handleChange}/>
+        <div className="input-group-append">
+          <button className="btn btn-outline-secondary" type="button" onClick={this.handleSubmit}>Add</button>
+        </div>
+      </div>
     );
   }
 
