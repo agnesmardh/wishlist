@@ -42,7 +42,7 @@ class Wishlist extends Component {
 
   switchMode() {
     this.setState(state => ({
-      editMode: !state.editMode
+      ownList: !state.ownList
     }));
   }
 
@@ -65,7 +65,7 @@ class Wishlist extends Component {
           </div>
         }
         <div>
-          <button onClick={this.switchMode} type="button" className="btn btn-default btn-small">Switch</button>
+          <button onClick={this.switchMode} type="button" className="btn btn-outline-secondary">Switch</button>
         </div>
       </div>
     );

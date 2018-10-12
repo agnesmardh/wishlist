@@ -16,13 +16,31 @@ class Lists extends Component {
   addList = (newListName) => {
     let newWishlist = {name: newListName, owner: 'Agnes'}
     newListName !== '' && this.setState(prevState => ({
-    wishlists: [...prevState.wishlists, newWishlist]
+      wishlists: [...prevState.wishlists, newWishlist]
     }))
   }
 
-  removeList = (wishlist) => {
-    const newWishlists = this.state.wishlists.filter(item => {
-      return item !== wishlist;
+  findNewChosenList = (wishlists, listToRemove) => {
+    if(wishlists.length > 1) {
+      const index = wishlists.indexOf(listToRemove);
+      if(index === 0) {
+        return wishlists[index + 1]
+      } else {
+        return wishlists[index - 1]
+      }
+    }
+    return null;
+  }
+
+  removeList = (listToRemove) => {
+    const wishlists = this.state.wishlists;
+    if(listToRemove === this.props.activeList) {
+      const chosenList = this.findNewChosenList(wishlists, listToRemove);
+      this.props.chooseList(chosenList);
+    }
+
+    const newWishlists = wishlists.filter(item => {
+      return item !== listToRemove;
     });
     this.setState({
       wishlists: [...newWishlists]
@@ -34,8 +52,8 @@ class Lists extends Component {
       <div className="Lists">
         <ul className="Wishlists">
           {this.state.wishlists.map((wishlist) =>
-            <li key={wishlist.name} onClick={(e) => this.props.chooseList(wishlist)}>
-              {wishlist.name} by {wishlist.owner}
+            <li key={wishlist.name}>
+              <span onClick={(e) => this.props.chooseList(wishlist)}> {wishlist.name} by {wishlist.owner} </span>
               <button onClick={(e) => this.removeList(wishlist)} type="button" className="btn btn-default btn-small">remove</button>
             </li>
           )}

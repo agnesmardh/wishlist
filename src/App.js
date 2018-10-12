@@ -26,9 +26,9 @@ class App extends Component {
     return (
       <div className="App">
         <Header/>
-        <Lists wishlists={this.state.wishlists} chooseList={this.chooseList}/>
+        <Lists wishlists={this.state.wishlists} chooseList={this.chooseList} activeList={this.state.activeList}/>
         <div className="List">
-          <Wishlist wishlist={this.state.activeList}></Wishlist>
+          {this.state.activeList && <Wishlist wishlist={this.state.activeList}></Wishlist>}
         </div>
       </div>
     );
