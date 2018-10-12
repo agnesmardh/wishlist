@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import './Wishlist.css';
-import Wish from './Wish';
-import AddWishForm from './AddWishForm';
 import SharedWishlist from './SharedWishlist';
+import OwnWishlist from './OwnWishlist';
 
 class Wishlist extends Component {
 
@@ -12,7 +11,7 @@ class Wishlist extends Component {
       wishes: ["1", "2"],
       newWishName: '',
       message: '',
-      editMode: true
+      ownList: true
     };
 
     this.switchMode = this.switchMode.bind(this);
@@ -54,20 +53,10 @@ class Wishlist extends Component {
         <h3>{name} by {owner}</h3>
 
         {
-          this.state.editMode
+          this.state.ownList
           ? (
             <div>
-            <p className="Error-text"> {this.state.message} </p>
-            <ul className = "List">
-            {this.state.wishes.map((wish) =>
-              <li className="Item" key={wish}>
-                <Wish text={wish}></Wish>
-                <button onClick={(e) => this.removeItem(wish)} type="button" className="btn btn-default btn-small">remove</button>
-              </li>
-            )}
-            </ul>
-
-            <AddWishForm addWish={this.addWish}/>
+              <OwnWishlist wishes={this.state.wishes} removeItem={this.removeItem} addWish={this.addWish}/>
             </div>
           )
           :
@@ -75,7 +64,9 @@ class Wishlist extends Component {
             <SharedWishlist wishes={this.state.wishes}/>
           </div>
         }
-        <button onClick={this.switchMode} type="button" className="btn btn-default btn-small">Switch</button>
+        <div>
+          <button onClick={this.switchMode} type="button" className="btn btn-default btn-small">Switch</button>
+        </div>
       </div>
     );
   }

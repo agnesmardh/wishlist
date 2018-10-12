@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
+import './SharedWishlist.css'
 
-class SharedWish extends Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
+class SharedWishlist extends Component {
 
   render() {
     return (
-      <div>
+      <div className="sharedList">
       {this.props.wishes.map((wish) =>
         <div className="checkbox" key={wish}>
           <label><input type="checkbox" value=""/>{wish}</label>
@@ -22,4 +17,4 @@ class SharedWish extends Component {
 
 }
 
-export default SharedWish;
+export default SharedWishlist;

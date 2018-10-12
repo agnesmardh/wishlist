@@ -1,11 +1,12 @@
-.List {
+.list {
   display: inline-block;
-}
-
-.Item {
   text-align: left;
 }
 
-.Error-text {
+.item {
+  text-align: left;
+}
+
+.error-text {
   color: red;
 }
