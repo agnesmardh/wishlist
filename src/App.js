@@ -3,6 +3,7 @@ import './App.css';
 import Header from "./components/Header";
 import Wishlist from "./components/Wishlist";
 import Lists from "./components/Lists";
+import Login from "./components/Login";
 
 class App extends Component {
 
@@ -26,6 +27,7 @@ class App extends Component {
     return (
       <div className="App">
         <Header/>
+        <Login/>
         <Lists wishlists={this.state.wishlists} chooseList={this.chooseList} activeList={this.state.activeList}/>
         <div className="List">
           {this.state.activeList && <Wishlist wishlist={this.state.activeList}></Wishlist>}
