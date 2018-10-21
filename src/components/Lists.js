@@ -7,10 +7,26 @@ class Lists extends Component {
     super(props);
     this.state = {
       wishlists: [
-        {name: 'My wishlist', owner: 'Agnes'},
-        {name: 'Books', owner: 'Mattias'}
+        //{name: 'My wishlist', owner: 'Agnes'},
+        //{name: 'Books', owner: 'Mattias'}
       ]
     };
+  }
+
+  componentDidMount() {
+    const wishlistsPromise = this.getWishlists();
+    wishlistsPromise.then(json => {
+      this.setState({
+        wishlists : json.body
+      });
+    })
+  }
+
+  getWishlists = async () => {
+    const response = await fetch('https://ceyysx0vt4.execute-api.eu-central-1.amazonaws.com/dev/wishlists');
+    const json = await response.json();
+    console.log(json);
+    return json;
   }
 
   addList = (newListName) => {

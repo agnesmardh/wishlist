@@ -28,7 +28,7 @@ class App extends Component {
       <div className="App">
         <Header/>
         <Login/>
-        <Lists wishlists={this.state.wishlists} chooseList={this.chooseList} activeList={this.state.activeList}/>
+        <Lists chooseList={this.chooseList} activeList={this.state.activeList}/>
         <div className="List">
           {this.state.activeList && <Wishlist wishlist={this.state.activeList}></Wishlist>}
         </div>
