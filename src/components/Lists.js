@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import AddListForm from "./AddListForm";
+import { API } from "aws-amplify";
+
 
 class Lists extends Component {
 
@@ -23,10 +25,9 @@ class Lists extends Component {
   }
 
   getWishlists = async () => {
-    const response = await fetch('https://ceyysx0vt4.execute-api.eu-central-1.amazonaws.com/dev/wishlists');
-    const json = await response.json();
-    console.log(json);
-    return json;
+    const response = await API.get("wishlists", "/dev/wishlists")
+    console.log(response);
+    return response;
   }
 
   addList = (newListName) => {

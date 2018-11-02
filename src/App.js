@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import Wishlist from "./components/Wishlist";
 import Lists from "./components/Lists";
 import Login from "./components/Login";
+import { withAuthenticator } from 'aws-amplify-react';
 
 class App extends Component {
 
@@ -13,8 +14,7 @@ class App extends Component {
       activeList: {
         name: "My Wishlist",
         owner: "Agnes"
-      },
-      loggedIn: false
+      }
     };
   }
 
@@ -28,24 +28,15 @@ class App extends Component {
     return (
       <div className="App">
         <Header/>
-        {
-          this.state.loggedIn
-          ? (
-            <div>
-              <Lists chooseList={this.chooseList} activeList={this.state.activeList}/>
+          <div>
+            <Lists chooseList={this.chooseList} activeList={this.state.activeList}/>
               <div className="List">
                 {this.state.activeList && <Wishlist wishlist={this.state.activeList}></Wishlist>}
-              </div>
             </div>
-          )
-          :
-          <div>
-            <Login/>
           </div>
-        }
       </div>
     );
   }
 }
 
-export default App;
+export default withAuthenticator(App, true);
