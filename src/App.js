@@ -13,7 +13,8 @@ class App extends Component {
       activeList: {
         name: "My Wishlist",
         owner: "Agnes"
-      }
+      },
+      loggedIn: false
     };
   }
 
@@ -27,11 +28,21 @@ class App extends Component {
     return (
       <div className="App">
         <Header/>
-        <Login/>
-        <Lists chooseList={this.chooseList} activeList={this.state.activeList}/>
-        <div className="List">
-          {this.state.activeList && <Wishlist wishlist={this.state.activeList}></Wishlist>}
-        </div>
+        {
+          this.state.loggedIn
+          ? (
+            <div>
+              <Lists chooseList={this.chooseList} activeList={this.state.activeList}/>
+              <div className="List">
+                {this.state.activeList && <Wishlist wishlist={this.state.activeList}></Wishlist>}
+              </div>
+            </div>
+          )
+          :
+          <div>
+            <Login/>
+          </div>
+        }
       </div>
     );
   }
