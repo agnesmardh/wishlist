@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import AddListForm from "./AddListForm";
-import { API } from "aws-amplify";
+import { Auth, API } from "aws-amplify";
 
 
 class Lists extends Component {
@@ -30,11 +30,20 @@ class Lists extends Component {
     return response;
   }
 
-  addList = (newListName) => {
-    let newWishlist = {name: newListName, owner: 'Agnes'}
-    newListName !== '' && this.setState(prevState => ({
-      wishlists: [...prevState.wishlists, newWishlist]
-    }))
+  addList = async (newListName) => {
+    let user = await Auth.currentAuthenticatedUser();
+    let myInit = {
+      body: {name: newListName, owner: user.username}, // replace this with attributes you need
+      headers: {} // OPTIONAL
+    }
+    const response = await API.post("wishlists", "/dev/wishlists", myInit);
+    console.log(response);
+    if(response.statusCode === 200) {
+      let newWishlist = {name: newListName, owner: user.username}
+      newListName !== '' && this.setState(prevState => ({
+        wishlists: [...prevState.wishlists, newWishlist]
+      }))
+    }
   }
 
   findNewChosenList = (wishlists, listToRemove) => {
@@ -49,19 +58,27 @@ class Lists extends Component {
     return null;
   }
 
-  removeList = (listToRemove) => {
-    const wishlists = this.state.wishlists;
-    if(listToRemove === this.props.activeList) {
-      const chosenList = this.findNewChosenList(wishlists, listToRemove);
-      this.props.chooseList(chosenList);
+  removeList = async (listToRemove) => {
+    let myInit = {
+      body: {id: listToRemove.id}, // replace this with attributes you need
+      headers: {} // OPTIONAL
     }
+    const response = await API.del("wishlists", "/dev/wishlists/", myInit);
+    console.log(response);
+    if(response.statusCode === 200) {
+      const wishlists = this.state.wishlists;
+      if(listToRemove === this.props.activeList) {
+        const chosenList = this.findNewChosenList(wishlists, listToRemove);
+        this.props.chooseList(chosenList);
+      }
 
-    const newWishlists = wishlists.filter(item => {
-      return item !== listToRemove;
-    });
-    this.setState({
-      wishlists: [...newWishlists]
-    })
+      const newWishlists = wishlists.filter(item => {
+        return item !== listToRemove;
+      });
+      this.setState({
+        wishlists: [...newWishlists]
+      })
+    }
   }
 
   render() {
