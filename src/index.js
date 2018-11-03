@@ -5,7 +5,7 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import config from "./config";
-import Amplify from "aws-amplify";
+import Amplify, {Auth} from "aws-amplify";
 
 Amplify.configure({
   Auth: {
@@ -19,7 +19,10 @@ Amplify.configure({
     endpoints: [
       {
         name: "wishlists",
-        endpoint: "https://ceyysx0vt4.execute-api.eu-central-1.amazonaws.com"
+        endpoint: "https://ceyysx0vt4.execute-api.eu-central-1.amazonaws.com",
+        custom_header: async () => {
+          return { Authorization: (await Auth.currentSession()).idToken.jwtToken }
+        }
       }
     ]
   }
