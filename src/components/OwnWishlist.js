@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './OwnWishlist.css';
 import Wish from './Wish';
-import AddWishForm from './AddWishForm';
+import AddForm from './AddForm';
 
 class OwnWishlist extends Component {
 
@@ -20,11 +20,13 @@ class OwnWishlist extends Component {
           {this.props.wishes.map((wish) =>
             <li className="item" key={wish}>
               <Wish text={wish}></Wish>
-              <button onClick={(e) => this.props.removeItem(wish)} type="button" className="btn btn-default btn-small">remove</button>
+              <button onClick={(e) => this.props.removeItem(wish)} type="button"
+                className="btn btn-default btn-small">remove
+              </button>
             </li>
           )}
           </ul>
-          <AddWishForm addWish={this.props.addWish}/>
+          <AddForm addItem={this.props.addWish} placeholder="Wish"/>
       </div>
     );
   }

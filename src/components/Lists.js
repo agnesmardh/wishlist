@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import AddListForm from "./AddListForm";
+import AddForm from "./AddForm";
 import { Auth, API } from "aws-amplify";
 
 
@@ -92,7 +92,7 @@ class Lists extends Component {
             </li>
           )}
         </ul>
-        <AddListForm addList={this.addList}/>
+        <AddForm addItem={this.addList} placeholder="Wish list name"/>
       </div>
     );
   }
