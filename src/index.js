@@ -19,7 +19,7 @@ Amplify.configure({
     endpoints: [
       {
         name: "wishlists",
-        endpoint: "https://ceyysx0vt4.execute-api.eu-central-1.amazonaws.com",
+        endpoint: "https://dyz7cxxq7h.execute-api.eu-central-1.amazonaws.com",
         custom_header: async () => {
           return { Authorization: (await Auth.currentSession()).idToken.jwtToken }
         }

@@ -19,7 +19,7 @@ class Lists extends Component {
     const wishlistsPromise = this.getWishlists();
     wishlistsPromise.then(json => {
       this.setState({
-        wishlists : json.body
+        wishlists : json.wishLists
       });
     })
   }
