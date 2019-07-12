@@ -1,61 +1,89 @@
 import React, { Component } from 'react';
-import AddForm from './AddForm';
+import './SharedWith.css';
+import { Glyphicon } from 'react-bootstrap';
 
 class ShareList extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      sharedWith: [
-        {username:'Agnes'},
-        {username:'Mattias'}
-      ],
+      sharedWith: ['Agnes', 'Mattias'],
       newUserName: '',
-      message: ''
     };
   }
 
   addUser = (newUserName) => {
     const isInlist = this.state.sharedWith.includes(newUserName);
     if(isInlist) {
-      this.setState({
-        message: 'The item is already in the list'
-      })
+      //this.setState({
+      //  message: 'The wishlist is already shared with this user'
+      //})
     } else {
-      let newSharedWith = {username: newUserName}
-      newListName !== '' && this.setState(prevState => ({
-        wishlists: [...prevState.wishlists, newWishlist],
-        message: ''
-      }))
       newUserName !== '' && this.setState(prevState => ({
-      sharedWith: [...prevState.wishes, newUserName],
+      sharedWith: [...prevState.sharedWith, newUserName],
       message: ''
       }))
     }
   }
 
+  containsUser = (user) => {
+    let list = this.state.sharedWith
+    var i;
+    for (i = 0; i < list.length; i++) {
+        if (list[i].username === user) {
+            return true;
+        }
+    }
+    return false;
+  }
+
   removeUser = (user) => {
-    const newUsers = this.state.wishes.filter(item => {
+    const newUsers = this.state.sharedWith.filter(item => {
       return item !== user;
     });
     this.setState({
-      wishes: [...newUsers]
+      sharedWith: [...newUsers]
     })
+  }
+
+  handleChange = (event) => {
+    this.setState({newUserName: event.target.value});
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault(event)
+    this.addUser(this.state.newUserName);
+    this.setState({
+      newUserName: ''
+    })
+  }
+
+  handleButtonPress = (event) => {
+    this.handleSubmit(event);
+  }
+
+  handleKeyPress = (event) => {
+    if(event.key==='Enter'){
+        this.handleSubmit(event);
+    }
   }
 
   render() {
     return (
       <div>
-        <p className="error-text"> {this.state.message} </p>
-        <ul>
+        <div className="user-container">
           {this.state.sharedWith.map((user) =>
-            <li key={user.username}>
-              <span> {user.username}</span>
-              <button onClick={(e) => this.removeUser(user)} type="button" className="btn btn-default btn-small">remove</button>
-            </li>
+            <div key={user}>
+              <span className="share-item"> {user}</span>
+              <span className="share-item" onClick={() => this.removeUser(user)}>
+                <Glyphicon glyph="remove"/>
+              </span>
+            </div>
           )}
-        </ul>
-        <AddForm addItem={this.addUser} placeholder="Share with..."/>
+        <input type="text" value={this.state.newUserName} placeholder="Share with..." className="text-input share-item"
+        onChange={this.handleChange} onKeyPress={this.handleKeyPress}
+        />
+        </div>
       </div>
     );
   }

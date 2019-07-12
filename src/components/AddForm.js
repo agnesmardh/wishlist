@@ -14,7 +14,8 @@ class AddForm extends Component {
     this.setState({newItem: event.target.value});
   }
 
-  handleSubmit = () => {
+  handleSubmit = (event) => {
+    event.preventDefault(event)
     this.props.addItem(this.state.newItem);
     this.setState({
       newItem: ''
@@ -22,13 +23,12 @@ class AddForm extends Component {
   }
 
   handleButtonPress = (event) => {
-    event.preventDefault();
-    this.handleSubmit();
+    this.handleSubmit(event);
   }
 
   handleKeyPress = (event) => {
     if(event.key==='Enter'){
-        this.handleSubmit();
+        this.handleSubmit(event);
     }
   }
 
@@ -43,8 +43,9 @@ class AddForm extends Component {
            onChange={this.handleChange}
            onKeyPress={this.handleKeyPress}
          />
-       <Button bsSize="small"
-          onClick={this.handleSubmit}>Add
+       <Button
+          onClick={this.handleSubmit}
+          >Add
        </Button>
       </Form>
     );

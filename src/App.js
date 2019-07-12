@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
-import Header from "./components/Header";
 import Wishlist from "./components/Wishlist";
 import Lists from "./components/Lists";
-import Login from "./components/Login";
-import { withAuthenticator } from 'aws-amplify-react';
+import { ConfirmSignIn, ConfirmSignUp, ForgotPassword, RequireNewPassword, SignIn, SignUp, VerifyContact, withAuthenticator } from 'aws-amplify-react';
 
 class App extends Component {
 
@@ -27,11 +25,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Header/>
-          <div>
+          <div className="FlexContainer">
             <Lists chooseList={this.chooseList} activeList={this.state.activeList}/>
-              <div className="List">
-                {this.state.activeList && <Wishlist wishlist={this.state.activeList}></Wishlist>}
+            <div className="WishlistContainer">
+              {this.state.activeList && <Wishlist wishlist={this.state.activeList}></Wishlist>}
             </div>
           </div>
       </div>
@@ -39,4 +36,18 @@ class App extends Component {
   }
 }
 
-export default withAuthenticator(App, true);
+const MyTheme = {
+    button: {'backgroundColor': '#88e0d1', 'borderRadius': '4px'},
+    navButton: {'backgroundColor': '#88e0d1', 'borderRadius': '4px'}
+}
+
+
+export default withAuthenticator(App, true, [
+  <SignIn/>,
+  <ConfirmSignIn/>,
+  <ConfirmSignUp/>,
+  <ForgotPassword/>,
+  <RequireNewPassword/>,
+  <SignUp/>,
+  <VerifyContact/>,
+  ], null, MyTheme);
