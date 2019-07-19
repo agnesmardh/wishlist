@@ -34,7 +34,7 @@ class Lists extends Component {
   addList = async (newListName) => {
     let user = await Auth.currentAuthenticatedUser();
     let myInit = {
-      body: {name: newListName, owner: user.username}, // replace this with attributes you need
+      body: {name: newListName}, // replace this with attributes you need
       headers: {} // OPTIONAL
     }
     const response = await API.post("wishlists", "/dev/wishlists", myInit);
