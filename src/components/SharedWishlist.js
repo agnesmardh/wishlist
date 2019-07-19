@@ -16,7 +16,7 @@ class SharedWishlist extends Component {
     return (
       <div className="sharedList">
       {this.props.wishes.map((wish) =>
-        <Checkbox key={wish.wish} defaultChecked={wish.boughtBy !== ''} onClick={() => this.props.checkWish(wish)}>
+        <Checkbox key={wish.id} defaultChecked={wish.boughtBy !== ''} onClick={() => this.props.checkWish(wish)}>
           {wish.wish}
           {wish.boughtBy &&
             <span> bought by {wish.boughtBy}</span>

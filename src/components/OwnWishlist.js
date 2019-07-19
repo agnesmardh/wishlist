@@ -18,7 +18,7 @@ class OwnWishlist extends Component {
         <ShareList/>
         <ul className = "list">
           {this.props.wishes.map((wish) =>
-            <li className="item" key={wish.wish}>
+            <li className="item" key={wish.id}>
               <Wish text={wish.wish}></Wish>
               <span onClick={(e) => this.props.removeItem(wish)}>
                 <Glyphicon glyph="trash"/>
