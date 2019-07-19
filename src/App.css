@@ -19,5 +19,5 @@
 
 .WishlistContainer {
   flex-grow: 1;
-  margin-left: -223px; /* The width of List container */
+  padding-right: 223px;
 }
