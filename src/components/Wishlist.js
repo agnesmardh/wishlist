@@ -3,6 +3,7 @@ import './Wishlist.css';
 import SharedWishlist from './SharedWishlist';
 import OwnWishlist from './OwnWishlist';
 import { Button, Alert } from 'react-bootstrap';
+import { API } from "aws-amplify";
 
 class Wishlist extends Component {
 
@@ -18,19 +19,20 @@ class Wishlist extends Component {
     this.switchMode = this.switchMode.bind(this);
   }
 
-  addWish = (newWishName) => {
-    const newWish = {wish: newWishName, boughtBy: ''}
-    const isInlist = this.containsWish(newWishName);
-    if(isInlist) {
-      this.setState({
-        message: 'The item is already in the list'
-      })
-    } else {
-      newWishName !== '' && this.setState(prevState => ({
+  addWish = async (newWishName) => {
+    if(newWishName === '') {
+      return;
+    }
+    const request = {
+      body: {wish: newWishName, wishList: this.props.wishlist.id}
+    }
+
+    await API.post("wishlists", "/dev/wish", request);
+    let newWish = {wish: newWishName}
+    this.setState(prevState => ({
       wishes: [...prevState.wishes, newWish],
       message: ''
-      }))
-    }
+    }))
   }
 
   containsWish = (wish) => {
