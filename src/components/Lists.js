@@ -21,6 +21,7 @@ class Lists extends Component {
       this.setState({
         wishlists : json.wishLists
       });
+      this.props.chooseList(json.wishLists[0])
     })
   }
 
