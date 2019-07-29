@@ -3,14 +3,14 @@ import './Wishlist.css';
 import SharedWishlist from './SharedWishlist';
 import OwnWishlist from './OwnWishlist';
 import { Button, Alert } from 'react-bootstrap';
-import { API } from "aws-amplify";
+import { Auth, API } from "aws-amplify";
 
 class Wishlist extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      wishes: [{wish: 'Book', boughtBy: 'Agnes'}, {wish: 'Candy', boughtBy: ''}],
+      wishes: [{wish: 'Book', boughtBy: 'Agnes', id: 1}, {wish: 'Candy', boughtBy: '', id: 2}],
       newWishName: '',
       message: '',
       ownList: true
@@ -27,8 +27,8 @@ class Wishlist extends Component {
       body: {wish: newWishName, wishList: this.props.wishlist.id}
     }
 
-    await API.post("wishlists", "/dev/wish", request);
-    let newWish = {wish: newWishName}
+    const response = await API.post("wishlists", "/dev/wish", request);
+    let newWish = response.wishResponseObject
     this.setState(prevState => ({
       wishes: [...prevState.wishes, newWish],
       message: ''
@@ -61,13 +61,19 @@ class Wishlist extends Component {
     }));
   }
 
-  checkWish = (wish) => {
+  checkWish = async (wish) => {
+    let user = await Auth.currentAuthenticatedUser();
+    const request = {
+      body: {wishID: wish.id}
+    }
+
+    await API.post("wishlists", "/dev/grantwish", request);
     let list = this.state.wishes
     var i;
     for (i = 0; i < list.length; i++) {
         if (list[i] === wish) {
           if (list[i].boughtBy === '') {
-            list[i].boughtBy = 'User'
+            list[i].boughtBy = user.userName
           } else {
             list[i].boughtBy = ''
           }
